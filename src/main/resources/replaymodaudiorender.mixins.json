@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"package": "com.apehum.replayaudio.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"MixinLibrary",
+		"MixinLibraryAccessor",
+		"MixinSoundManagerAccessor",
+		"MixinSoundEngineAccessor",
+		"MixinReplayMod",
+		"MixinVideoRenderer",
+		"MixinProcessTask"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
