@@ -94,6 +94,10 @@ stonecutter {
     replacements.string(current.parsed >= "1.18.2") {
         replace("getDevice", "getCurrentDevice")
     }
+
+    replacements.string(current.parsed >= "26.2") {
+        replace("getMainCamera", "mainCamera")
+    }
 }
 
 val outputJarTask = modstitch.finalJarTask

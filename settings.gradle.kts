@@ -25,6 +25,7 @@ stonecutter {
         mc("1.18.2", "fabric")
         mc("1.19.3", "fabric")
         mc("26.1.1", "fabric")
+        mc("26.2", "fabric")
 
         mc("1.21.1", "neoforge")
 
