@@ -167,7 +167,7 @@ publishMods {
 
     if (isNeoforge) {
         curseforge {
-            projectId = ""
+            projectId = "1597682"
             accessToken = curseforgeToken
             requires("reforgedplay-mod")
             this.minecraftVersions.addAll(minecraftVersions)
