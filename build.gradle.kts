@@ -1,9 +1,10 @@
 import com.apehum.replayaudio.VersionResolver
 import me.modmuss50.mpp.ReleaseType
+import me.modmuss50.mpp.platforms.modrinth.ModrinthEnvironment
 
 plugins {
     id("dev.isxander.modstitch.base") version "0.8.4"
-    id("me.modmuss50.mod-publish-plugin") version "1.1.0"
+    id("me.modmuss50.mod-publish-plugin") version "2.1.1"
 }
 
 val platform = stonecutter.current.project.substringAfter('-')
@@ -164,6 +165,7 @@ publishMods {
         modrinth {
             projectId = "JNgb4oIM"
             accessToken = modrinthToken
+            environment = ModrinthEnvironment.CLIENT_ONLY
             requires("replaymod")
             this.minecraftVersions.addAll(minecraftVersions)
         }
@@ -173,6 +175,7 @@ publishMods {
         curseforge {
             projectId = "1597682"
             accessToken = curseforgeToken
+            client = true
             requires("reforgedplay-mod")
             this.minecraftVersions.addAll(minecraftVersions)
         }
