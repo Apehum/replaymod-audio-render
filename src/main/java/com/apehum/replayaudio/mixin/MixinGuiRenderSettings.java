@@ -9,6 +9,7 @@ import com.replaymod.lib.de.johni0702.minecraft.gui.element.GuiButton;
 import com.replaymod.lib.de.johni0702.minecraft.gui.element.GuiCheckbox;
 import com.replaymod.lib.de.johni0702.minecraft.gui.element.GuiElement;
 import com.replaymod.lib.de.johni0702.minecraft.gui.element.GuiLabel;
+import com.replaymod.lib.de.johni0702.minecraft.gui.element.GuiTooltip;
 import com.replaymod.lib.de.johni0702.minecraft.gui.element.IGuiClickable;
 import com.replaymod.lib.de.johni0702.minecraft.gui.element.advanced.GuiDropdownMenu;
 import com.replaymod.lib.de.johni0702.minecraft.gui.layout.GridLayout;
@@ -37,6 +38,7 @@ public abstract class MixinGuiRenderSettings {
 
     @Unique private AudioRenderSettings replayaudio$settings;
     @Unique private GuiCheckbox replayaudio$recordCheckbox;
+    @Unique private GuiCheckbox replayaudio$mergeCheckbox;
     @Unique private GuiDropdownMenu<AudioCodec> replayaudio$codecDropdown;
     @Unique private GuiCheckbox replayaudio$stereoCheckbox;
     @Unique private GuiButton replayaudio$outputFileButton;
@@ -48,6 +50,10 @@ public abstract class MixinGuiRenderSettings {
         replayaudio$recordCheckbox = new GuiCheckbox()
                 .setI18nLabel("replayaudio.gui.rendersettings.render")
                 .setChecked(replayaudio$settings.enabled);
+
+        replayaudio$mergeCheckbox = new GuiCheckbox()
+                .setI18nLabel("replayaudio.gui.rendersettings.merge")
+                .setChecked(replayaudio$settings.mergeIntoVideo);
 
         replayaudio$codecDropdown = new GuiDropdownMenu<AudioCodec>()
                 .setMinSize(new Dimension(200, 20))
@@ -66,6 +72,7 @@ public abstract class MixinGuiRenderSettings {
                 .addElements(
                         null,
                         replayaudio$recordCheckbox,
+                        replayaudio$mergeCheckbox,
                         replayaudio$stereoCheckbox,
                         new GuiPanel().setLayout(
                                 new GridLayout().setCellsEqualSize(false).setColumns(2).setSpacingX(5).setSpacingY(15)
@@ -87,6 +94,11 @@ public abstract class MixinGuiRenderSettings {
 
         replayaudio$onClick(replayaudio$recordCheckbox, () -> {
             replayaudio$settings.enabled = replayaudio$recordCheckbox.isChecked();
+            replayaudio$settings.save();
+            replayaudio$updateEnabled();
+        });
+        replayaudio$onClick(replayaudio$mergeCheckbox, () -> {
+            replayaudio$settings.mergeIntoVideo = replayaudio$mergeCheckbox.isChecked();
             replayaudio$settings.save();
             replayaudio$updateEnabled();
         });
@@ -144,15 +156,28 @@ public abstract class MixinGuiRenderSettings {
 
     @Unique
     private void replayaudio$updateEnabled() {
-        boolean on = replayaudio$recordCheckbox.isChecked();
-        if (on) {
-            replayaudio$codecDropdown.setEnabled();
-            replayaudio$stereoCheckbox.setEnabled();
-            replayaudio$outputFileButton.setEnabled();
-        } else {
-            replayaudio$codecDropdown.setDisabled();
+        if (!replayaudio$recordCheckbox.isChecked()) {
+            replayaudio$mergeCheckbox.setDisabled();
             replayaudio$stereoCheckbox.setDisabled();
+            replayaudio$codecDropdown.setDisabled();
             replayaudio$outputFileButton.setDisabled();
+            replayaudio$codecDropdown.setTooltip(null);
+            return;
+        }
+
+        replayaudio$mergeCheckbox.setEnabled();
+        replayaudio$stereoCheckbox.setEnabled();
+
+        if (replayaudio$mergeCheckbox.isChecked()) {
+            replayaudio$codecDropdown.setDisabled();
+            replayaudio$outputFileButton.setDisabled();
+            replayaudio$codecDropdown.setTooltip(
+                    new GuiTooltip().setI18nText("replayaudio.gui.rendersettings.codec.mergetooltip")
+            );
+        } else {
+            replayaudio$codecDropdown.setEnabled();
+            replayaudio$outputFileButton.setEnabled();
+            replayaudio$codecDropdown.setTooltip(null);
         }
     }
 

@@ -26,6 +26,7 @@ public class AudioRenderSettings {
     private static AudioRenderSettings INSTANCE;
 
     public boolean enabled = true;
+    public boolean mergeIntoVideo = false;
     public AudioCodec codec = AudioCodec.AAC;
     public boolean stereo = true;
     public transient File outputFile = null;

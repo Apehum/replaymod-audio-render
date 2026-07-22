@@ -1,2 +1,1 @@
-- Added audio settings inside ReplayMod render menu: render toggle, codec selection, stereo toggle and output file selection.
-- Fixed crash when taking a screenshot inside replay.
+- Added "Merge into video" option that muxes the rendered audio into ReplayMod's video file. When enabled, the codec is auto-selected to match the container (AAC for MP4, Opus for WebM). Formats without a video stream (PNG, EXR, Blend) fall back to exporting the audio separately. [#3](https://github.com/apehum/replaymod-audio-render/issues/3)

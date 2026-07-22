@@ -8,6 +8,7 @@
 		"MixinSoundEngineAccessor",
 		"MixinReplayMod",
 		"MixinVideoRenderer",
+		"MixinVideoRendererAccessor",
 		"MixinProcessTask",
 
 		"MixinGuiRenderSettings",

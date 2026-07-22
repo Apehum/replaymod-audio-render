@@ -1,7 +1,9 @@
 {
   "replayaudio.gui.rendersettings.audio": "Audio Settings",
   "replayaudio.gui.rendersettings.render": "Render audio",
+  "replayaudio.gui.rendersettings.merge": "Merge into video",
   "replayaudio.gui.rendersettings.codec": "Codec",
+  "replayaudio.gui.rendersettings.codec.mergetooltip": "Auto-selected to match the video container (AAC for MP4, Opus for WebM)",
   "replayaudio.gui.rendersettings.stereo": "Stereo",
   "replayaudio.gui.rendersettings.outputfile": "Output file"
 }
